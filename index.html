@@ -130,59 +130,52 @@
   </div>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyv97WvDtpcOV7nI3tqAI8S25MGgl8NBB8asOilH51L2vD9t_dC2fh3trmC-6lems76/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzVAKDJbHeCRggif7O6tznhJzmUcvtbrOWdwwNn0pSe7WyP2OBIbFy7oaAHqhoE69pC/exec";
 
-    const submitBtn = document.getElementById("submitBtn");
-    const statusEl = document.getElementById("status");
+document.getElementById("submitBtn").addEventListener("click", async () => {
+  const statusEl = document.getElementById("status");
 
-    submitBtn.addEventListener("click", async () => {
-      const loanAmount = document.getElementById("loan_amount").value;
-      const loanPurpose = document.getElementById("loan_purpose").value;
+  const loanAmount = document.getElementById("loan_amount").value;
+  const loanPurpose = document.getElementById("loan_purpose").value;
 
-      if (!loanAmount || !loanPurpose) {
-        statusEl.style.color = "red";
-        statusEl.textContent = "Please fill all fields";
-        return;
-      }
+  if (!loanAmount || !loanPurpose) {
+    statusEl.style.color = "red";
+    statusEl.textContent = "Please fill all fields";
+    return;
+  }
 
-      statusEl.style.color = "#374151";
-      statusEl.textContent = "Submitting...";
+  statusEl.style.color = "#333";
+  statusEl.textContent = "Submitting...";
 
-      const payload = {
+  try {
+    const response = await fetch(SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
         loan_amount: loanAmount,
         loan_purpose: loanPurpose,
         user_agent: navigator.userAgent,
         timestamp: new Date().toISOString()
-      };
-
-      try {
-        const response = await fetch(SCRIPT_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(payload)
-        });
-
-        const result = await response.json();
-
-        if (result.success) {
-          statusEl.style.color = "green";
-          statusEl.textContent = "Application submitted successfully ✔";
-          document.getElementById("loan_amount").value = "";
-          document.getElementById("loan_purpose").value = "";
-        } else {
-          statusEl.style.color = "red";
-          statusEl.textContent = "Submission failed";
-        }
-
-      } catch (error) {
-        console.error(error);
-        statusEl.style.color = "red";
-        statusEl.textContent = "Network error. Try again.";
-      }
+      })
     });
-  </script>
+
+    const result = await response.json();
+
+    if (result.success) {
+      statusEl.style.color = "green";
+      statusEl.textContent = "Application submitted successfully ✔";
+    } else {
+      throw new Error("Script error");
+    }
+
+  } catch (err) {
+    console.error(err);
+    statusEl.style.color = "red";
+    statusEl.textContent = "Network error. Try again.";
+  }
+});
+</script>
+
 
 </body>
 </html>
