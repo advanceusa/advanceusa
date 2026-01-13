@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Personal Loan Application</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
+      margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
       background: linear-gradient(135deg, #eef2ff, #e0f2fe);
-      margin: 0;
-      padding: 0;
     }
 
     .container {
@@ -23,9 +22,9 @@
     }
 
     .header {
-      padding: 20px;
       background: #2563eb;
-      color: #ffffff;
+      color: white;
+      padding: 20px;
       text-align: center;
     }
 
@@ -40,9 +39,9 @@
 
     label {
       display: block;
+      margin-bottom: 6px;
       font-size: 14px;
       font-weight: 600;
-      margin-bottom: 6px;
       color: #374151;
     }
 
@@ -64,7 +63,7 @@
       width: 100%;
       padding: 14px;
       background: #2563eb;
-      color: #ffffff;
+      color: white;
       border: none;
       border-radius: 8px;
       font-size: 16px;
@@ -76,18 +75,21 @@
       background: #1d4ed8;
     }
 
-    .status {
-      margin-top: 14px;
+    .success {
+      display: none;
+      padding: 16px;
       text-align: center;
-      font-size: 14px;
+      color: #065f46;
+      background: #d1fae5;
+      font-weight: 600;
     }
 
     .footer {
-      padding: 14px;
+      background: #f9fafb;
+      padding: 12px;
       text-align: center;
       font-size: 12px;
       color: #6b7280;
-      background: #f9fafb;
     }
   </style>
 </head>
@@ -100,28 +102,44 @@
     </div>
 
     <div class="form">
-      <label for="loan_amount">Loan Amount (USD)</label>
-      <input
-        type="number"
-        id="loan_amount"
-        min="2000"
-        max="10000"
-        placeholder="5000"
-        required
-      />
+      <!-- IMPORTANT: HTML FORM SUBMISSION (NO CORS) -->
+      <form
+        action="https://script.google.com/macros/s/AKfycbxndcm6e3Lrv4O9G6ZJrFrmqAZqXk-7JYcbCnE63K7i_V1djPHcWIdVn1yNmX8QZVcf/exec"
+        method="POST"
+        target="hidden_iframe"
+        onsubmit="handleSubmit();"
+      >
 
-      <label for="loan_purpose">Loan Purpose</label>
-      <select id="loan_purpose" required>
-        <option value="">Select purpose</option>
-        <option value="Debt Consolidation">Debt Consolidation</option>
-        <option value="Home Improvement">Home Improvement</option>
-        <option value="Medical Expenses">Medical Expenses</option>
-        <option value="Personal Expenses">Personal Expenses</option>
-      </select>
+        <label for="loan_amount">Loan Amount (USD)</label>
+        <input
+          type="number"
+          id="loan_amount"
+          name="loan_amount"
+          min="2000"
+          max="10000"
+          placeholder="5000"
+          required
+        >
 
-      <button id="submitBtn">Submit Application</button>
+        <label for="loan_purpose">Loan Purpose</label>
+        <select id="loan_purpose" name="loan_purpose" required>
+          <option value="">Select purpose</option>
+          <option value="Debt Consolidation">Debt Consolidation</option>
+          <option value="Home Improvement">Home Improvement</option>
+          <option value="Medical Expenses">Medical Expenses</option>
+          <option value="Personal Expenses">Personal Expenses</option>
+        </select>
 
-      <div class="status" id="status"></div>
+        <!-- Hidden metadata -->
+        <input type="hidden" name="user_agent" id="user_agent">
+        <input type="hidden" name="timestamp" id="timestamp">
+
+        <button type="submit">Submit Application</button>
+      </form>
+    </div>
+
+    <div class="success" id="successMessage">
+      ✔ Application submitted successfully
     </div>
 
     <div class="footer">
@@ -129,55 +147,21 @@
     </div>
   </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
+  <!-- Hidden iframe prevents page redirect -->
+  <iframe name="hidden_iframe" style="display:none;"></iframe>
 
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxce10m0L7O1YkpHauxErUGPzFKlJeJQ-BRqLwA_7KFaNl4zafmda76J4IuJbmM2GYR/exec";
+  <script>
+    function handleSubmit() {
+      document.getElementById("user_agent").value = navigator.userAgent;
+      document.getElementById("timestamp").value = new Date().toISOString();
 
-  document.getElementById("submitBtn").addEventListener("click", function () {
-
-    const statusEl = document.getElementById("status");
-    const loanAmount = document.getElementById("loan_amount").value;
-    const loanPurpose = document.getElementById("loan_purpose").value;
-
-    if (!loanAmount || !loanPurpose) {
-      statusEl.style.color = "red";
-      statusEl.textContent = "Please fill all fields";
-      return;
+      setTimeout(() => {
+        document.getElementById("successMessage").style.display = "block";
+        document.getElementById("loan_amount").value = "";
+        document.getElementById("loan_purpose").value = "";
+      }, 500);
     }
-
-    statusEl.style.color = "#333";
-    statusEl.textContent = "Submitting...";
-
-    const formData = new FormData();
-    formData.append("loan_amount", loanAmount);
-    formData.append("loan_purpose", loanPurpose);
-    formData.append("user_agent", navigator.userAgent);
-    formData.append("timestamp", new Date().toISOString());
-
-    fetch(SCRIPT_URL, {
-      method: "POST",
-      body: formData   // 🔑 NO headers → NO preflight → NO CORS
-    })
-    .then(() => {
-      statusEl.style.color = "green";
-      statusEl.textContent = "Application submitted successfully ✔";
-
-      document.getElementById("loan_amount").value = "";
-      document.getElementById("loan_purpose").value = "";
-    })
-    .catch(err => {
-      console.error(err);
-      statusEl.style.color = "red";
-      statusEl.textContent = "Submission failed";
-    });
-
-  });
-
-});
-</script>
-
-
+  </script>
 
 </body>
 </html>
