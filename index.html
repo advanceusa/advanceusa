@@ -132,13 +132,11 @@
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzvWM6PNWd0G2scuVwcYSxiT9Mxx8p1XlukuRMYG-dIokstpnxBahRjP7QL2xo8LJ31/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxndcm6e3Lrv4O9G6ZJrFrmqAZqXk-7JYcbCnE63K7i_V1djPHcWIdVn1yNmX8QZVcf/exec";
 
-  const submitBtn = document.getElementById("submitBtn");
-  const statusEl = document.getElementById("status");
+  document.getElementById("submitBtn").addEventListener("click", function () {
 
-  submitBtn.addEventListener("click", async function () {
-
+    const statusEl = document.getElementById("status");
     const loanAmount = document.getElementById("loan_amount").value;
     const loanPurpose = document.getElementById("loan_purpose").value;
 
@@ -151,38 +149,28 @@ document.addEventListener("DOMContentLoaded", function () {
     statusEl.style.color = "#333";
     statusEl.textContent = "Submitting...";
 
-    try {
-      const response = await fetch(SCRIPT_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          loan_amount: loanAmount,
-          loan_purpose: loanPurpose,
-          user_agent: navigator.userAgent,
-          timestamp: new Date().toISOString()
-        })
-      });
+    const formData = new FormData();
+    formData.append("loan_amount", loanAmount);
+    formData.append("loan_purpose", loanPurpose);
+    formData.append("user_agent", navigator.userAgent);
+    formData.append("timestamp", new Date().toISOString());
 
-      const result = await response.json();
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      body: formData   // 🔑 NO headers → NO preflight → NO CORS
+    })
+    .then(() => {
+      statusEl.style.color = "green";
+      statusEl.textContent = "Application submitted successfully ✔";
 
-      if (result.success === true) {
-        statusEl.style.color = "green";
-        statusEl.textContent = "Application submitted successfully ✔";
-
-        document.getElementById("loan_amount").value = "";
-        document.getElementById("loan_purpose").value = "";
-
-      } else {
-        throw new Error("Script returned failure");
-      }
-
-    } catch (err) {
-      console.error("Submit error:", err);
+      document.getElementById("loan_amount").value = "";
+      document.getElementById("loan_purpose").value = "";
+    })
+    .catch(err => {
+      console.error(err);
       statusEl.style.color = "red";
-      statusEl.textContent = "Network error. Try again.";
-    }
+      statusEl.textContent = "Submission failed";
+    });
 
   });
 
