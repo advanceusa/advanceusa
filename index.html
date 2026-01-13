@@ -129,52 +129,66 @@
     </div>
   </div>
 
-  <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzVAKDJbHeCRggif7O6tznhJzmUcvtbrOWdwwNn0pSe7WyP2OBIbFy7oaAHqhoE69pC/exec";
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
-document.getElementById("submitBtn").addEventListener("click", async () => {
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxndcm6e3Lrv4O9G6ZJrFrmqAZqXk-7JYcbCnE63K7i_V1djPHcWIdVn1yNmX8QZVcf/exec";
+
+  const submitBtn = document.getElementById("submitBtn");
   const statusEl = document.getElementById("status");
 
-  const loanAmount = document.getElementById("loan_amount").value;
-  const loanPurpose = document.getElementById("loan_purpose").value;
+  submitBtn.addEventListener("click", async function () {
 
-  if (!loanAmount || !loanPurpose) {
-    statusEl.style.color = "red";
-    statusEl.textContent = "Please fill all fields";
-    return;
-  }
+    const loanAmount = document.getElementById("loan_amount").value;
+    const loanPurpose = document.getElementById("loan_purpose").value;
 
-  statusEl.style.color = "#333";
-  statusEl.textContent = "Submitting...";
-
-  try {
-    const response = await fetch(SCRIPT_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        loan_amount: loanAmount,
-        loan_purpose: loanPurpose,
-        user_agent: navigator.userAgent,
-        timestamp: new Date().toISOString()
-      })
-    });
-
-    const result = await response.json();
-
-    if (result.success) {
-      statusEl.style.color = "green";
-      statusEl.textContent = "Application submitted successfully ✔";
-    } else {
-      throw new Error("Script error");
+    if (!loanAmount || !loanPurpose) {
+      statusEl.style.color = "red";
+      statusEl.textContent = "Please fill all fields";
+      return;
     }
 
-  } catch (err) {
-    console.error(err);
-    statusEl.style.color = "red";
-    statusEl.textContent = "Network error. Try again.";
-  }
+    statusEl.style.color = "#333";
+    statusEl.textContent = "Submitting...";
+
+    try {
+      const response = await fetch(SCRIPT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          loan_amount: loanAmount,
+          loan_purpose: loanPurpose,
+          user_agent: navigator.userAgent,
+          timestamp: new Date().toISOString()
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.success === true) {
+        statusEl.style.color = "green";
+        statusEl.textContent = "Application submitted successfully ✔";
+
+        document.getElementById("loan_amount").value = "";
+        document.getElementById("loan_purpose").value = "";
+
+      } else {
+        throw new Error("Script returned failure");
+      }
+
+    } catch (err) {
+      console.error("Submit error:", err);
+      statusEl.style.color = "red";
+      statusEl.textContent = "Network error. Try again.";
+    }
+
+  });
+
 });
 </script>
+
 
 
 </body>
