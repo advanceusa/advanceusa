@@ -1,236 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Personal Loan Application</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <title>Advance America – Personal Loans</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Tailwind CDN (static-safe) -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: #f5f7fb;
-      margin: 0;
-      padding: 40px 0;
-    }
-
-    .card {
-      max-width: 600px;
-      margin: auto;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.12);
-      overflow: hidden;
-    }
-
-    .header {
-      padding: 24px;
-      border-bottom: 1px solid #e5e7eb;
-      text-align: center;
-    }
-
-    .header h1 {
-      margin: 0 0 8px;
-      font-size: 26px;
-    }
-
-    .progress {
-      display: flex;
-      justify-content: space-between;
-      font-size: 14px;
-      color: #6b7280;
-      margin-bottom: 8px;
-    }
-
-    .bar {
-      height: 8px;
-      background: #fde68a;
-      border-radius: 999px;
-    }
-
-    .bar.full { width: 100%; }
-    .bar.half { width: 50%; }
-
-    .content {
-      padding: 24px;
-    }
-
-    label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: #374151;
-    }
-
-    input, select {
-      width: 100%;
-      height: 44px;
-      padding: 0 12px;
-      border-radius: 8px;
-      border: 1px solid #d1d5db;
-      font-size: 15px;
-      margin-bottom: 16px;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 12px;
-    }
-
-    .actions {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 24px;
-    }
-
-    button {
-      height: 44px;
-      padding: 0 24px;
-      border-radius: 8px;
-      border: none;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      background: #2563eb;
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background: #1d4ed8;
-    }
-
-    .btn-success {
-      background: #16a34a;
-      color: white;
-    }
-
-    .btn-success:hover {
-      background: #15803d;
-    }
-
-    .btn-outline {
-      background: transparent;
-      border: 2px solid #d1d5db;
-    }
+    .step { display: none; }
+    .step.active { display: block; }
   </style>
 </head>
 
-<body>
+<body class="bg-white text-gray-900">
 
-<div class="card">
+<!-- HEADER -->
+<header class="border-b shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="index.html" class="font-bold text-xl">Advance America</a>
+    <nav class="hidden md:flex gap-6">
+      <a href="personal-loans.html">Personal Loans</a>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="faqs.html">FAQs</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
 
-  <!-- STEP 1 -->
-  <div id="step1">
-    <div class="header">
-      <h1>Personal Loan Application</h1>
-      <div class="progress">
-        <span>Step 1 of 2</span>
-        <span>50% Complete</span>
-      </div>
-      <div class="bar half"></div>
+<!-- HERO -->
+<section class="bg-gradient-to-br from-blue-50 to-indigo-100 py-16">
+  <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-10 items-center">
+
+    <!-- LEFT -->
+    <div>
+      <span class="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm mb-4">
+        No Hidden Fees • Fast Approval
+      </span>
+
+      <h1 class="text-4xl lg:text-5xl font-bold mb-4">
+        Personal Loans up to <span class="text-blue-600">$100,000</span>
+      </h1>
+
+      <p class="text-lg text-gray-600 mb-6">
+        Apply online in minutes with fast approval and flexible repayment options.
+      </p>
     </div>
 
-    <div class="content">
-      <label>Loan Amount *</label>
-      <input type="number" min="2000" max="10000" value="5000">
+    <!-- FORM CARD -->
+    <div class="bg-white rounded-xl shadow-lg max-w-md mx-auto w-full">
 
-      <label>Loan Purpose *</label>
-      <select>
-        <option value="">Select purpose</option>
-        <option>Debt Consolidation</option>
-        <option>Home Improvement</option>
-        <option>Medical Expenses</option>
-        <option>Personal Expenses</option>
-      </select>
-
-      <div class="actions">
-        <span></span>
-        <button class="btn-primary" type="button" onclick="goToStep2()">Next</button>
+      <!-- PROGRESS -->
+      <div class="p-6 border-b bg-gray-50 rounded-t-xl">
+        <h2 class="text-2xl font-semibold text-center">Personal Loan Application</h2>
+        <div class="flex justify-between text-sm text-gray-500 mt-2">
+          <span id="stepText">Step 1 of 2</span>
+          <span id="percentText">50% Complete</span>
+        </div>
+        <div class="w-full h-2 bg-gray-200 rounded-full mt-2">
+          <div id="progressBar" class="h-2 bg-orange-400 rounded-full w-1/2"></div>
+        </div>
       </div>
+
+      <!-- FORM -->
+      <form id="loanForm" class="p-6 space-y-6">
+
+        <!-- STEP 1 -->
+        <div class="step active" id="step1">
+          <h3 class="text-lg font-semibold text-center">Loan Details</h3>
+
+          <div>
+            <label class="block text-sm font-medium mb-1">Loan Amount</label>
+            <input type="number" min="2000" max="10000" required
+              class="w-full border rounded-md px-3 py-2"
+              placeholder="5000">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium mb-1">Loan Purpose</label>
+            <select required class="w-full border rounded-md px-3 py-2">
+              <option value="">Select purpose</option>
+              <option>Debt Consolidation</option>
+              <option>Home Improvement</option>
+              <option>Medical</option>
+              <option>Personal Expenses</option>
+            </select>
+          </div>
+
+          <button type="button" onclick="nextStep()"
+            class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">
+            Next
+          </button>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step" id="step2">
+          <h3 class="text-lg font-semibold text-center">Personal Information</h3>
+
+          <div class="grid grid-cols-2 gap-4">
+            <input required placeholder="First Name" class="border px-3 py-2 rounded-md">
+            <input required placeholder="Last Name" class="border px-3 py-2 rounded-md">
+          </div>
+
+          <input type="email" required placeholder="Email"
+            class="w-full border px-3 py-2 rounded-md">
+
+          <input type="tel" required placeholder="Phone Number"
+            class="w-full border px-3 py-2 rounded-md">
+
+          <input required placeholder="Home Address"
+            class="w-full border px-3 py-2 rounded-md">
+
+          <div class="grid grid-cols-3 gap-4">
+            <input placeholder="City" class="border px-3 py-2 rounded-md">
+            <input placeholder="State" class="border px-3 py-2 rounded-md">
+            <input placeholder="ZIP" class="border px-3 py-2 rounded-md">
+          </div>
+
+          <input placeholder="Date of Birth (YYYY-MM-DD)"
+            class="w-full border px-3 py-2 rounded-md">
+
+          <input placeholder="SSN (XXX-XX-XXXX)"
+            class="w-full border px-3 py-2 rounded-md">
+
+          <div class="flex justify-between gap-4">
+            <button type="button" onclick="prevStep()"
+              class="border px-4 py-2 rounded-md">
+              Back
+            </button>
+
+            <button type="submit"
+              class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
+              Submit Application
+            </button>
+          </div>
+        </div>
+
+      </form>
     </div>
   </div>
+</section>
 
-  <!-- STEP 2 -->
-  <div id="step2" style="display:none;">
-    <div class="header">
-      <h1>Personal Loan Application</h1>
-      <div class="progress">
-        <span>Step 2 of 2</span>
-        <span>100% Complete</span>
-      </div>
-      <div class="bar full"></div>
-    </div>
-
-    <div class="content">
-      <div class="grid-2">
-        <div>
-          <label>First Name *</label>
-          <input type="text" placeholder="John">
-        </div>
-        <div>
-          <label>Last Name *</label>
-          <input type="text" placeholder="Doe">
-        </div>
-      </div>
-
-      <div class="grid-2">
-        <div>
-          <label>Email ID *</label>
-          <input type="email">
-        </div>
-        <div>
-          <label>Phone Number *</label>
-          <input type="tel" placeholder="(555) 123-4567">
-        </div>
-      </div>
-
-      <label>Home Address *</label>
-      <input type="text" placeholder="123 Main Street">
-
-      <div class="grid-3">
-        <input type="text" placeholder="City">
-        <input type="text" placeholder="State">
-        <input type="text" placeholder="ZIP">
-      </div>
-
-      <label>Date of Birth *</label>
-      <div class="grid-3">
-        <input type="text" placeholder="Month">
-        <input type="text" placeholder="Day">
-        <input type="text" placeholder="Year">
-      </div>
-
-      <label>Social Security Number *</label>
-      <input type="text" placeholder="XXX-XX-XXXX">
-
-      <div class="actions">
-        <button class="btn-outline" type="button" onclick="goToStep1()">← Back</button>
-        <button class="btn-success" type="submit">Submit Application</button>
-      </div>
-    </div>
+<!-- FOOTER -->
+<footer class="bg-slate-900 text-white mt-20">
+  <div class="max-w-7xl mx-auto px-4 py-10 text-center text-sm text-gray-400">
+    © 2025 Advance America. All rights reserved.
   </div>
+</footer>
 
-</div>
-
+<!-- JS -->
 <script>
-  function goToStep2() {
-    document.getElementById("step1").style.display = "none";
-    document.getElementById("step2").style.display = "block";
+  function nextStep() {
+    document.getElementById('step1').classList.remove('active');
+    document.getElementById('step2').classList.add('active');
+    document.getElementById('stepText').innerText = 'Step 2 of 2';
+    document.getElementById('percentText').innerText = '100% Complete';
+    document.getElementById('progressBar').classList.remove('w-1/2');
+    document.getElementById('progressBar').classList.add('w-full');
   }
 
-  function goToStep1() {
-    document.getElementById("step2").style.display = "none";
-    document.getElementById("step1").style.display = "block";
+  function prevStep() {
+    document.getElementById('step2').classList.remove('active');
+    document.getElementById('step1').classList.add('active');
+    document.getElementById('stepText').innerText = 'Step 1 of 2';
+    document.getElementById('percentText').innerText = '50% Complete';
+    document.getElementById('progressBar').classList.remove('w-full');
+    document.getElementById('progressBar').classList.add('w-1/2');
   }
+
+  document.getElementById('loanForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Application submitted successfully!');
+    this.reset();
+    prevStep();
+  });
 </script>
 
 </body>
