@@ -164,28 +164,21 @@
   document.getElementById('loanForm').addEventListener('submit', function (e) {
     e.preventDefault();
 
-    const formData = {
-      loanAmount: document.querySelector('input[type="number"]').value,
-      loanPurpose: document.querySelector('select').value,
-      firstName: document.querySelectorAll('input')[1].value,
-      lastName: document.querySelectorAll('input')[2].value,
-      email: document.querySelectorAll('input')[3].value,
-      phone: document.querySelectorAll('input')[4].value,
-      address: document.querySelectorAll('input')[5].value,
-      city: document.querySelectorAll('input')[6].value,
-      state: document.querySelectorAll('input')[7].value,
-      zip: document.querySelectorAll('input')[8].value,
-      dob: document.querySelectorAll('input')[9].value,
-      ssn: document.querySelectorAll('input')[10].value
-    };
+    const formData = new FormData(this);
+    const data = {};
 
-    // Save everything
-    localStorage.setItem('loanApplication', JSON.stringify(formData));
+    formData.forEach((value, key) => {
+      data[key] = value;
+    });
 
-    // Redirect to verification page
+    // ✅ Save all data
+    localStorage.setItem('loanApplication', JSON.stringify(data));
+
+    // ✅ Redirect (this is what you want)
     window.location.href = 'vrfy6134853.html';
   });
 </script>
+
 
 
 </body>
