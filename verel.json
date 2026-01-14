@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/personal-loans",
+      "destination": "/personal-loans.html"
+    }
+  ]
+}
