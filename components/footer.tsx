@@ -9,7 +9,7 @@ export function Footer() {
           <Link href="/" className="flex items-center">
             <Image
               src="/images/lending-tree-logo.png"
-              alt="LendingTree"
+              alt="Advance America"
               width={150}
               height={40}
               className="h-10 w-auto"
@@ -32,7 +32,7 @@ export function Footer() {
           </nav>
 
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} LendingTree. All rights reserved.
+            © {new Date().getFullYear()} Advance America. All rights reserved.
           </p>
         </div>
       </div>
