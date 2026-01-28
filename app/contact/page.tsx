@@ -36,13 +36,13 @@ export default function ContactPage() {
     {
       icon: Phone,
       title: "Phone",
-      details: "(813) 302-7598",
+      details: "(864) 206-5814",
       subtext: "Mon-Fri 8am-10pm EST",
     },
     {
       icon: Mail,
       title: "Email",
-      details: "credoralendingservices@gmail.com",
+      details: "advanceamericapmc@gmail.com",
       subtext: "We respond within 24 hours",
     },
     {
