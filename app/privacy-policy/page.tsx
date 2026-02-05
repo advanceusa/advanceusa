@@ -86,8 +86,8 @@ export default function PrivacyPolicyPage() {
                 Advance America, LLC<br />
                 11115 Rushmore Dr<br />
                 Charlotte, NC 28277<br />
-                Email: credoralendingservices@gmail.com<br />
-                Phone: (813) 302-7598
+                Email: advanceamericapmc@gmail.com<br />
+                Phone: (864) 214-6374
               </p>
             </section>
           </div>

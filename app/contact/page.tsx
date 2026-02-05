@@ -36,7 +36,7 @@ export default function ContactPage() {
     {
       icon: Phone,
       title: "Phone",
-      details: "(864) 206-5814",
+      details: "(864) 214-6374",
       subtext: "Mon-Fri 8am-10pm EST",
     },
     {
